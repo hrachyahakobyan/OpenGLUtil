@@ -14,7 +14,7 @@ The library contains classes that abstract the boilerplate code of
 
 The goal of the project is not to provide complete solutions to the users, but a template to build on.
 
-I have extensively used the wonderful code and tutorials found on (Learn OpenGL)[https://learnopengl.com/] both for creation
+I have extensively used the wonderful code and tutorials found on [Learn OpenGL](https://learnopengl.com/) both for creation
 of my own code and for learning purposes.
 
 ## Getting Started
