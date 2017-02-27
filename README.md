@@ -26,10 +26,10 @@ of Visual Studio if the libraries it uses are supported by the compiler.
 ### Prerequisites
 
 OpenGLUtil utilizes the following libraries and frameworks
-(glfw)[http://www.glfw.org/]
-(glew)[http://glew.sourceforge.net/]
-(soil)[http://www.lonesock.net/soil.html]
-(assimp)[http://www.assimp.org/]
+1.  (glfw)[http://www.glfw.org/]
+2.  (glew)[http://glew.sourceforge.net/]
+3.  (soil)[http://www.lonesock.net/soil.html]
+4.  (assimp)[http://www.assimp.org/]
 
 ```
 Examples coming soon!
