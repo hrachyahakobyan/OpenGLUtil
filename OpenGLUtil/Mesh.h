@@ -1,5 +1,6 @@
 #pragma once
 #include "Texture.h"
+#include "Resource.h"
 
 namespace shared{
 	/**
@@ -29,7 +30,7 @@ namespace shared{
 			const std::vector<shared::Texture>&);
 		Mesh(const Mesh&);
 		Mesh& operator=(const Mesh&);
-		Mesh(Mesh&&);
+		Mesh(Mesh&&) NOEXCEPT;
 		Mesh& operator=(Mesh&&);
 		~Mesh() = default;
 
@@ -46,7 +47,9 @@ namespace shared{
 		std::vector<shared::Vertex> vertices;
 		std::vector<GLuint> indices;
 		std::vector<shared::Texture> textures;
-		GLuint VAO, VBO, EBO;
+		std::shared_ptr<VAO> vao;
+		std::shared_ptr<VBO> vbo;
+		std::shared_ptr<EBO> ebo;
 
 		/**
 		*	Creates the VAO, VBO, EBO and buffers data.

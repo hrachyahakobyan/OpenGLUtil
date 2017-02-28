@@ -12,14 +12,14 @@ namespace shared{
 	}
 
 	Mesh::Mesh(const Mesh& o) :
-		vertices(o.vertices), indices(o.indices), textures(o.textures),
-		VAO(o.VAO), VBO(o.VBO), EBO(o.EBO)
+		vertices(o.vertices), indices(o.indices), textures(o.textures)
 	{
+		setup();
 	}
 
 	Mesh::Mesh(Mesh&& o) :
 		vertices(std::move(o.vertices)), indices(std::move(o.indices)), textures(std::move(o.textures)),
-		VAO(o.VAO), VBO(o.VBO), EBO(o.EBO)
+		vao(std::move(o.vao)), vbo(std::move(o.vbo)), ebo(std::move(o.ebo))
 	{
 	}
 
@@ -28,9 +28,7 @@ namespace shared{
 		vertices = o.vertices;
 		textures = o.textures;
 		indices = o.indices;
-		VAO = o.VAO;
-		EBO = o.EBO;
-		VBO = o.VBO;
+		setup();
 		return *this;
 	}
 
@@ -39,25 +37,25 @@ namespace shared{
 		vertices = std::move(o.vertices);
 		textures = std::move(o.textures);
 		indices = std::move(o.indices);
-		VAO = o.VAO;
-		EBO = o.EBO;
-		VBO = o.VBO;
+		vao = std::move(o.vao);
+		vbo = std::move(o.vbo);
+		ebo = std::move(o.ebo);
 		return *this;
 	}
 
 	void Mesh::setup()
 	{
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
-
-		glBindVertexArray(VAO);
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		vao.reset(new Resource<R_VAO>());
+		vbo.reset(new Resource<R_VBO>());
+		ebo.reset(new Resource<R_EBO>());
+	
+		glBindVertexArray(vao->getResourceID());
+		glBindBuffer(GL_ARRAY_BUFFER, vbo->getResourceID());
 
 		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex),
 			vertices.data(), GL_STATIC_DRAW);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo->getResourceID());
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint),
 			indices.data(), GL_STATIC_DRAW);
 
@@ -100,7 +98,7 @@ namespace shared{
 		glUniform1f(glGetUniformLocation(shader.getProgram(), "material.shininess"), 16.0f);
 
 		// Draw mesh
-		glBindVertexArray(VAO);
+		glBindVertexArray(vao->getResourceID());
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 

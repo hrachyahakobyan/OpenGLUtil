@@ -16,6 +16,7 @@ namespace shared{
 	Model::Model(Model&& o) :
 		meshes(std::move(o.meshes)), directory(std::move(o.directory))
 	{
+		
 	}
 
 	Model& Model::operator=(const Model& m)

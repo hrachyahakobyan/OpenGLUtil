@@ -4,7 +4,6 @@
 #include "stdafx.h"
 #include "ModelSampleApp.h"
 
-
 int _tmain(int argc, _TCHAR* argv[])
 {
 	ModelSampleApp app("Nanosuit");
