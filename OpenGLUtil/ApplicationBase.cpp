@@ -2,7 +2,7 @@
 #include "ApplicationBase.h"
 #include "CameraBase.h"
 
-namespace shared{
+namespace glutil{
 
 	ApplicationBase::ApplicationBase(const std::string& windowName) :
 		windowHandler(new WindowHandler(windowName)),

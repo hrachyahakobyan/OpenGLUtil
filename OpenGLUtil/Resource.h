@@ -1,6 +1,6 @@
 #pragma once
 
-namespace shared{
+namespace glutil{
 	typedef unsigned int ResourceType;
 	static const ResourceType R_VAO = 0;
 	static const ResourceType R_VBO = 1;

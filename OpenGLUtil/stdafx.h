@@ -20,6 +20,8 @@
 #include <vector>
 #include <memory>
 #include <map>
+#include <tuple>
+#include <array>
 #include <set>
 
 // GLEW

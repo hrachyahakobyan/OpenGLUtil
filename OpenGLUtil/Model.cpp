@@ -2,7 +2,7 @@
 #include "Model.h"
 
 
-namespace shared{
+namespace glutil{
 	Model::Model(const std::string& path)
 	{
 		loadModel(path);

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Resource.h"
 
-namespace shared{
+namespace glutil{
 	unsigned int ResourceBase::resourceCount = 0;
 
 	ResourceBase::ResourceBase()

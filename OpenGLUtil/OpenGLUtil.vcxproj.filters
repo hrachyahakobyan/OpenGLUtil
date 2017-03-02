@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\model">
+      <UniqueIdentifier>{215ad015-80b1-4ad3-932d-ea307f7c50df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\detail">
+      <UniqueIdentifier>{96b946ec-1636-43b6-aaed-356b67b35bbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\model">
+      <UniqueIdentifier>{2622d613-4e8c-49d5-be71-72bbc6d619fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\detail">
+      <UniqueIdentifier>{0927a132-52d6-4c1e-8f54-56d406426ffe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -22,9 +34,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
@@ -51,6 +60,18 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelArray.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelArrayBase.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiContainer.h">
+      <Filter>Header Files\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -74,9 +95,6 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -85,6 +103,18 @@
     </ClCompile>
     <ClCompile Include="Resource.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiContainer.cpp">
+      <Filter>Source Files\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelArray.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelArrayBase.cpp">
+      <Filter>Source Files\model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace shared{
+namespace glutil{
 
 	/**
 	*	@brief interface for call backs.

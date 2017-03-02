@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "WindowHandler.h"
 
-namespace shared{
+namespace glutil{
 
 	WindowHandler::WindowHandler() :
 		windowName("Untitled"),

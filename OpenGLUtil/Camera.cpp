@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Camera.h"
 
-namespace shared{
+namespace glutil{
 
 	Camera::Camera() :
 		rotationSensitivity(0.25f),

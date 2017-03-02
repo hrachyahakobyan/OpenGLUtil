@@ -2,27 +2,27 @@
 #include "ModelSampleApp.h"
 
 ModelSampleApp::ModelSampleApp(const std::string& windowName) :
-shared::ApplicationBase(windowName)
+glutil::ApplicationBase(windowName)
 {
 }
 
-ModelSampleApp::ModelSampleApp(std::unique_ptr<shared::WindowHandler> windowHandler) :
-shared::ApplicationBase(std::move(windowHandler))
+ModelSampleApp::ModelSampleApp(std::unique_ptr<glutil::WindowHandler> windowHandler) :
+glutil::ApplicationBase(std::move(windowHandler))
 {
 }
 
 void ModelSampleApp::initialize()
 {
-	shared::ApplicationBase::initialize();
+	glutil::ApplicationBase::initialize();
 	try {
-		model.reset(new shared::Model("models/nanosuit/nanosuit.obj"));
+		model.reset(new glutil::Model("models/nanosuit/nanosuit.obj"));
 	}
 	catch (std::exception& e){
 		std::cout << e.what() << std::endl;
 	}
 	backgroundColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	shader.reset(new shared::Shader("shaders/vertex.txt", "shaders/fragment.txt"));
-	camera.reset(new shared::Camera(glm::vec3(0.0f, 0.0f, 3.0f),
+	shader.reset(new glutil::Shader("shaders/vertex.txt", "shaders/fragment.txt"));
+	camera.reset(new glutil::Camera(glm::vec3(0.0f, 0.0f, 3.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f),
 		glm::vec3(0.0f, 0.0f, 0.0f)));
 }
@@ -58,12 +58,12 @@ void ModelSampleApp::render()
 void ModelSampleApp::updateMovement()
 {
 	if (keys[GLFW_KEY_W])
-		camera->move(shared::FORWARD, deltaTime);
+		camera->move(glutil::FORWARD, deltaTime);
 	if (keys[GLFW_KEY_S])
-		camera->move(shared::BACKWARD, deltaTime);
+		camera->move(glutil::BACKWARD, deltaTime);
 	if (keys[GLFW_KEY_A])
-		camera->move(shared::LEFT, deltaTime);
+		camera->move(glutil::LEFT, deltaTime);
 	if (keys[GLFW_KEY_D])
-		camera->move(shared::RIGHT, deltaTime);
+		camera->move(glutil::RIGHT, deltaTime);
 }
 

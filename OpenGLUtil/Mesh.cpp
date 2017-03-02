@@ -2,10 +2,10 @@
 #include "Mesh.h"
 #include "Shader.h"
 
-namespace shared{
-	Mesh::Mesh(const std::vector<shared::Vertex>& v,
+namespace glutil{
+	Mesh::Mesh(const std::vector<glutil::Vertex>& v,
 		const std::vector<GLuint>& i,
-		const std::vector<shared::Texture>& t) :
+		const std::vector<glutil::Texture>& t) :
 		vertices(v), indices(i), textures(t)
 	{
 		setup();
@@ -75,7 +75,7 @@ namespace shared{
 		glBindVertexArray(0);
 	}
 
-	void Mesh::draw(const shared::Shader& shader) const
+	void Mesh::draw(const glutil::Shader& shader) const
 	{
 		GLuint diffuseNr = 1;
 		GLuint specularNr = 1;

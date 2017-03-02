@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Texture.h"
 
-namespace shared{
+namespace glutil{
 
 	std::map<std::string, Texture> Texture::textures;
 

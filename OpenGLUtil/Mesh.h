@@ -2,7 +2,7 @@
 #include "Texture.h"
 #include "Resource.h"
 
-namespace shared{
+namespace glutil{
 	/**
 	*	@brief simple struct to store vertex attributes
 	*	from www.learnopengl.com
@@ -25,28 +25,28 @@ namespace shared{
 	{
 	public:
 		Mesh() = delete;
-		Mesh(const std::vector<shared::Vertex>&,
+		Mesh(const std::vector<glutil::Vertex>&,
 			const std::vector<GLuint>& indices,
-			const std::vector<shared::Texture>&);
+			const std::vector<glutil::Texture>&);
 		Mesh(const Mesh&);
 		Mesh& operator=(const Mesh&);
 		Mesh(Mesh&&) NOEXCEPT;
 		Mesh& operator=(Mesh&&);
 		~Mesh() = default;
 
-		const std::vector<shared::Vertex>& getVertices() const { return vertices; }
+		const std::vector<glutil::Vertex>& getVertices() const { return vertices; }
 		const std::vector<GLuint> getIndices() const { return indices; }
-		const std::vector < shared::Texture>& getTextures() const { return textures; }
+		const std::vector < glutil::Texture>& getTextures() const { return textures; }
 
 		/**
 		*	Renders the mesh.
 		*	@param shader the shader object to be used for rendering.
 		*/
-		void draw(const shared::Shader& shader) const;
+		void draw(const glutil::Shader& shader) const;
 	private:
-		std::vector<shared::Vertex> vertices;
+		std::vector<glutil::Vertex> vertices;
 		std::vector<GLuint> indices;
-		std::vector<shared::Texture> textures;
+		std::vector<glutil::Texture> textures;
 		std::shared_ptr<VAO> vao;
 		std::shared_ptr<VBO> vbo;
 		std::shared_ptr<EBO> ebo;

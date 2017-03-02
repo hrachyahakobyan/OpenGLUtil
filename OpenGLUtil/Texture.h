@@ -1,6 +1,6 @@
 #pragma once
 
-namespace shared{
+namespace glutil{
 	/**
 	*	@brief simple struct to store Texture metadata
 	*	from www.learnopengl.com

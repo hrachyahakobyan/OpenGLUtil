@@ -1,6 +1,6 @@
 #pragma once
 
-namespace shared{
+namespace glutil{
 	enum CameraMovement {
 		FORWARD,
 		BACKWARD,

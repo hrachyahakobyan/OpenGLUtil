@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Shader.h"
 
-namespace shared{
+namespace glutil{
 	Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath)
 	{
 		// 1. Retrieve the vertex/fragment source code from filePath

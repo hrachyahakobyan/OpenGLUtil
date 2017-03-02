@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CameraBase.h"
 
-namespace shared{
+namespace glutil{
 
 	CameraBase::CameraBase() :
 		position(0.0f, 0.0f, 0.0f),
