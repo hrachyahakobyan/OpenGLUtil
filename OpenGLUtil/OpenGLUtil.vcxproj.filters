@@ -69,8 +69,8 @@
     <ClInclude Include="ModelArrayBase.h">
       <Filter>Header Files\model</Filter>
     </ClInclude>
-    <ClInclude Include="MultiContainer.h">
-      <Filter>Header Files\detail</Filter>
+    <ClInclude Include="InstanceSampleApp.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -104,9 +104,6 @@
     <ClCompile Include="Resource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MultiContainer.cpp">
-      <Filter>Source Files\detail</Filter>
-    </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
@@ -115,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="ModelArrayBase.cpp">
       <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="InstanceSampleApp.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

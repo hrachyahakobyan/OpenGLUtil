@@ -1,10 +1,12 @@
 #pragma once
 #include "Mesh.h"
 
-
-namespace shared{
+namespace glutil{
 
 	class Shader;
+
+	FORWARD_MODELARRAY()
+	FORWARD_MODELARRAYBASE()
 
 	/**
 	*	@brief An abstraction of a graphic model.
@@ -27,12 +29,13 @@ namespace shared{
 		Model& operator=(const Model&m);
 		Model& operator=(Model&&);
 		~Model();
-		void draw(const shared::Shader& shader) const;
+		void draw(const glutil::Shader& shader) const;
 	private:
-		/*  Model Data  */
+		FRIEND_MODELARRAY()
+
 		std::vector<Mesh> meshes;
 		std::string directory;
-		/*  Functions   */
+	
 		void loadModel(const std::string& path);
 		void processNode(aiNode* node, const aiScene* scene);
 		Mesh processMesh(aiMesh* mesh, const aiScene* scene);

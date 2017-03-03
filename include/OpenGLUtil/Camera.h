@@ -1,7 +1,7 @@
 #pragma once
 #include "CameraBase.h"
 
-namespace shared{
+namespace glutil{
 	/**
 	*	@brief Camera with possibility to rotate.
 	*	Uses Euler angles to process rotation.

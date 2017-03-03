@@ -1,7 +1,7 @@
 #pragma once
 #include "WindowHandler.h"
 
-namespace shared{
+namespace glutil{
 
 	class CameraBase;
 	class WindowHandler;
@@ -10,7 +10,7 @@ namespace shared{
 	*	@brief Template class for Application.
 	*	@author Hrachya Hakobyan
 	*/
-	class ApplicationBase : public shared::CallbackListener
+	class ApplicationBase : public CallbackListener
 	{
 	public:
 
@@ -25,13 +25,13 @@ namespace shared{
 		*	The application will become the sole owner of the resource.
 		*	@param windowHandler a unique pointer to a WindowHandler object
 		*/
-		explicit ApplicationBase(std::unique_ptr<shared::WindowHandler> windowHandler);
+		explicit ApplicationBase(std::unique_ptr<WindowHandler> windowHandler);
 		ApplicationBase() = delete;
 		ApplicationBase(const ApplicationBase&) = delete;
 		ApplicationBase& operator=(const ApplicationBase& other) = delete;
 		virtual ~ApplicationBase();
 
-		inline const shared::WindowHandler& getWindowHandler() const;
+		inline const WindowHandler& getWindowHandler() const;
 
 		/**
 		*	Sets the camera of the application.

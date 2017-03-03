@@ -3,17 +3,26 @@
 
 #include "stdafx.h"
 #include "ModelSampleApp.h"
+#include "InstanceSampleApp.h"
 
-template<typename
 
-int _tmain(int argc, _TCHAR* argv[])
+static void modelSampleApp()
 {
-	std::cout << glm::mat4::length() << std::endl;
-	std::cout << glm::vec4::length() << std::endl;
-
 	ModelSampleApp app("Nanosuit");
 	app.initialize();
 	app.run();
+}
+
+static void instanceSampleApp()
+{
+	InstanceSampleApp app("Asteroid");
+	app.initialize();
+	app.run();
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	instanceSampleApp();
 	return 0;
 }
 

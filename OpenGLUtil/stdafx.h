@@ -50,3 +50,17 @@
 	MakeString( Stringize, __LINE__ )
 #define Reminder				\
 	__FILE__ "(" $Line ") : Reminder: "
+
+#define FORWARD_MODELARRAY() \
+		template<typename, typename...> \
+		class ModelArray;
+
+#define FORWARD_MODELARRAYBASE() \
+		template<typename> \
+		class ModelArrayBase;
+
+#define FRIEND_MODELARRAY() \
+		template<typename, typename...> \
+		friend class ModelArray; \
+		template<typename> \
+		friend class ModelArrayBase; 

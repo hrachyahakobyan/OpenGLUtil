@@ -82,11 +82,11 @@
     <ClInclude Include="ApplicationBase.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraBase.h" />
+    <ClInclude Include="InstanceSampleApp.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelArray.h" />
     <ClInclude Include="ModelArrayBase.h" />
-    <ClInclude Include="MultiContainer.h" />
     <ClInclude Include="OpenGLUtil.hpp" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Shader.h" />
@@ -99,12 +99,12 @@
     <ClCompile Include="ApplicationBase.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraBase.cpp" />
+    <ClCompile Include="InstanceSampleApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelArray.cpp" />
     <ClCompile Include="ModelArrayBase.cpp" />
-    <ClCompile Include="MultiContainer.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="stdafx.cpp">

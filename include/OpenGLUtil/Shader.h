@@ -1,12 +1,13 @@
 #pragma once
+#include "Resource.h"
 
-namespace shared{
+namespace glutil{
 
 	/**
 	*	@brief Abstracts the shader compilation and linkage
 	*	modified from https://learnopengl.com 
 	*/
-	class Shader
+	class Shader 
 	{
 	public:
 		Shader(const GLchar* vertexPath, const GLchar* fragmentPath);

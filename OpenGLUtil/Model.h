@@ -5,6 +5,9 @@ namespace glutil{
 
 	class Shader;
 
+	FORWARD_MODELARRAY()
+	FORWARD_MODELARRAYBASE()
+
 	/**
 	*	@brief An abstraction of a graphic model.
 	*	from learnopengl.com
@@ -28,6 +31,8 @@ namespace glutil{
 		~Model();
 		void draw(const glutil::Shader& shader) const;
 	private:
+		FRIEND_MODELARRAY()
+
 		std::vector<Mesh> meshes;
 		std::string directory;
 	

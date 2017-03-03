@@ -15,6 +15,9 @@ namespace glutil{
 
 	class Shader;
 
+	FORWARD_MODELARRAY()
+	FORWARD_MODELARRAYBASE()
+
 	/**
 	*	@brief class to represent a mesh.
 	*	A mesh is made of vertices, corresponding indices and zero or more textures
@@ -44,6 +47,8 @@ namespace glutil{
 		*/
 		void draw(const glutil::Shader& shader) const;
 	private:
+		FRIEND_MODELARRAY()
+
 		std::vector<glutil::Vertex> vertices;
 		std::vector<GLuint> indices;
 		std::vector<glutil::Texture> textures;

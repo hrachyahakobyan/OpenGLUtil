@@ -36,6 +36,7 @@ namespace glutil{
 		Resource& operator=(const Resource&) = delete;
 		~Resource();
 		inline static unsigned int getResourceCount(){ return resourceCount; }
+		void bind() const;
 	private:
 		static unsigned int resourceCount;
 	};
@@ -48,6 +49,7 @@ namespace glutil{
 		Resource& operator=(const Resource&) = delete;
 		~Resource();
 		inline static unsigned int getResourceCount(){ return resourceCount; }
+		void bind() const;
 	private:
 		static unsigned int resourceCount;
 	};

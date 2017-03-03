@@ -32,9 +32,27 @@
 
 #include <SOIL.h>
 
+#define NOEXCEPT _NOEXCEPT
+#define FORWARD_MODELARRAY() \
+		template<typename, typename...> \
+		class ModelArray;
+
+#define FORWARD_MODELARRAYBASE() \
+		template<typename> \
+		class ModelArrayBase;
+
+#define FRIEND_MODELARRAY() \
+		template<typename, typename...> \
+		friend class ModelArray; \
+		template<typename> \
+		friend class ModelArrayBase;
+
 #include "Camera.h"
 #include "Shader.h"
 #include "WindowHandler.h"
 #include "ApplicationBase.h"
 #include "Mesh.h"
 #include "Model.h"
+#include "ModelArray.h"
+
+ 

@@ -32,6 +32,11 @@ namespace glutil{
 		std::cout << "VAO Resource count " << resourceCount << std::endl;
 	}
 
+	void Resource<R_VAO>::bind() const
+	{
+		glBindVertexArray(resourceID);
+	}
+
 	unsigned int Resource<R_VBO>::resourceCount = 0;
 
 	Resource<R_VBO>::Resource()
@@ -46,6 +51,11 @@ namespace glutil{
 		glDeleteBuffers(1, &resourceID);
 		resourceCount--;
 		std::cout << "Buffer Object Resource count " << resourceCount << std::endl;
+	}
+
+	void Resource<R_VBO>::bind() const
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, resourceID);
 	}
 
 	unsigned int Resource<R_EBO>::resourceCount = 0;
