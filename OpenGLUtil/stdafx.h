@@ -44,6 +44,8 @@
 
 #include <SOIL.h>
 
+#include "detail\standard_tuple.h"
+
 #define Stringize( L )			#L
 #define MakeString( M, L )		M(L)
 #define $Line					\

@@ -82,7 +82,7 @@
     <ClInclude Include="ApplicationBase.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraBase.h" />
-    <ClInclude Include="InstanceSampleApp.h" />
+    <ClInclude Include="detail\standard_tuple.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelArray.h" />
@@ -99,7 +99,7 @@
     <ClCompile Include="ApplicationBase.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraBase.cpp" />
-    <ClCompile Include="InstanceSampleApp.cpp" />
+    <ClCompile Include="detail\standard_tuple.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />

@@ -22,7 +22,7 @@ static void instanceSampleApp()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	modelSampleApp();
+	instanceSampleApp();
 	return 0;
 }
 

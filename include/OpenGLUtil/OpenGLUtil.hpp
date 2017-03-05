@@ -47,6 +47,7 @@
 		template<typename> \
 		friend class ModelArrayBase;
 
+#include "detail\standard_tuple.h"
 #include "Camera.h"
 #include "Shader.h"
 #include "WindowHandler.h"

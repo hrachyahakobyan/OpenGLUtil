@@ -7,7 +7,7 @@ namespace glutil{
 	class ModelArray : public ModelArrayBase<M>
 	{
 	public:
-		typedef std::tuple<Types...> Tuple;
+		typedef tuple<Types...> Tuple;
 		typedef std::vector<Tuple> InstanceData;
 		static const std::size_t TypeCount = sizeof...(Types);
 		static const GLsizei DataSize = sizeof(Tuple);
@@ -45,7 +45,7 @@ namespace glutil{
 	void ModelArray<M, Types...>::bufferData()
 	{
 		vbo->bind();
-		glBufferData(GL_ARRAY_BUFFER, instanceData.size(), instanceData.data(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, instanceData.size() * DataSize, instanceData.data(), GL_STATIC_DRAW);
 		GLsizei offset = 0;
 		GLuint initAttrib = initialAttrib;
 		GLuint finalAttrib = 0;
@@ -59,14 +59,15 @@ namespace glutil{
 	template<typename M, typename... Types>
 	void ModelArray<M, Types...>::draw(const Shader& shader) const
 	{
-		/*shader.use();
-		glBindTexture(GL_TEXTURE_2D, model.textures[0].id);
+		shader.use();
 		for (GLuint i = 0; i < model.meshes.size(); i++)
 		{
+			model.meshes[i].bindTextures(shader);
 			model.meshes[i].vao->bind();
 			glDrawElementsInstanced(GL_TRIANGLES, model.meshes[i].indices.size(), GL_UNSIGNED_INT, 0, instanceData.size());
 			glBindVertexArray(0);
-		}*/
+			model.meshes[i].unbindTextures();
+		}
 	}
 }
 

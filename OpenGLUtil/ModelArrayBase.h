@@ -8,14 +8,15 @@
 		finalAttrib = initialAttrib + 1;
 
 #define VERTEX_ATTRIB_MATRIX(matrix) \
-   			GLuint rowCount = matrix::col_type::length(); \
-			GLuint colCount = matrix::row_type::length(); \
-			for (GLuint i = 0; i < colCount; i++){ \
-				glEnableVertexAttribArray(initialAttrib + i); \
-				glVertexAttribPointer(initialAttrib + i, rowCount, ValueType<matrix::value_type>::type, normalize, stride, (GLvoid*)(offset + i * rowCount)); \
-				glVertexAttribDivisor(initialAttrib + i, divisor); \
-												} \
-			finalAttrib = initialAttrib + colCount
+   				GLuint rowCount = matrix::col_type::length(); \
+				GLuint colCount = matrix::row_type::length(); \
+				GLsizei colSize = sizeof(matrix::col_type); \
+				for (GLuint i = 0; i < colCount; i++){ \
+					glEnableVertexAttribArray(initialAttrib + i); \
+					glVertexAttribPointer(initialAttrib + i, rowCount, ValueType<matrix::value_type>::type, normalize, stride, (GLvoid*)(offset + i * colSize)); \
+					glVertexAttribDivisor(initialAttrib + i, divisor); \
+				} \
+				finalAttrib = initialAttrib + colCount; 
 
 namespace glutil{
 
@@ -55,16 +56,7 @@ namespace glutil{
 	struct VertexAttribPointer <glm::tmat4x4<T, glm::packed_highp>>{
 		void operator()(GLuint initialAttrib, GLuint& finalAttrib, GLuint divisor, GLint normalize, GLsizei offset, GLsizei stride = sizeof(T)){
 			typedef glm::tmat4x4<T, glm::packed_highp> matrix;
-			GLuint rowCount = matrix::col_type::length(); 
-			GLuint colCount = matrix::row_type::length(); 
-			GLsizei colSize = sizeof(matrix::col_type);
-			for (GLuint i = 0; i < colCount; i++){
-					glEnableVertexAttribArray(initialAttrib + i); 
-					glVertexAttribPointer(initialAttrib + i, rowCount, ValueType<matrix::value_type>::type, normalize, stride, (GLvoid*)(offset + i * colSize));
-					glVertexAttribDivisor(initialAttrib + i, divisor); 
-			} 
-			finalAttrib = initialAttrib + colCount;
-			//VERTEX_ATTRIB_MATRIX(matrix);
+			VERTEX_ATTRIB_MATRIX(matrix);
 		}
 	};
 
@@ -76,7 +68,7 @@ namespace glutil{
 			GLsizei offset, const GLsizei stride){
 			AttribHelper<I - 1, Tuple>::attrib(initialAttrib, finalAttrib, divisor, normalize, offset, stride);
 			GLsizei newOffset = offset + sizeof(std::tuple_element<I, Tuple>::type);
-			VertexAttribPointer<std::tuple_element<I, Tuple>::type>()(finalAttrib, finalAttrib,
+			VertexAttribPointer<detail::tuple_element<I, Tuple>::type>()(finalAttrib, finalAttrib,
 				divisor, normalize,
 				newOffset, stride);
 		}
@@ -88,7 +80,7 @@ namespace glutil{
 		static void attrib(GLuint initialAttrib, GLuint& finalAttrib,
 			GLuint divisor, GLint normalize,
 			GLsizei offset, const GLsizei stride){
-			VertexAttribPointer<std::tuple_element<0, Tuple>::type>()(initialAttrib, finalAttrib,
+			VertexAttribPointer<detail::tuple_element<0, Tuple>::type>()(initialAttrib, finalAttrib,
 				divisor, normalize,
 				offset, stride);
 		}

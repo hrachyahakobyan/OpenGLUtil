@@ -18,5 +18,6 @@ protected:
 	std::unique_ptr<glutil::Model> model;
 	std::unique_ptr<glutil::ModelArray<glutil::Model, glm::mat4>> modelArray;
 	const std::size_t rockCount = 100;
+	std::vector<tuple<glm::vec3, glm::vec3, GLfloat, glm::vec3>> rockData;
 };
 

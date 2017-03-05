@@ -69,14 +69,14 @@
     <ClInclude Include="ModelArrayBase.h">
       <Filter>Header Files\model</Filter>
     </ClInclude>
-    <ClInclude Include="InstanceSampleApp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Header Files\resource</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Header Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="detail\standard_tuple.h">
+      <Filter>Header Files\detail</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -113,14 +113,14 @@
     <ClCompile Include="ModelArrayBase.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
-    <ClCompile Include="InstanceSampleApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Resource.cpp">
       <Filter>Source Files\resource</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="detail\standard_tuple.cpp">
+      <Filter>Source Files\detail</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

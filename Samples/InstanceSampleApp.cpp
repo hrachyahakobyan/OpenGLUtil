@@ -2,12 +2,14 @@
 #include "InstanceSampleApp.h"
 
 InstanceSampleApp::InstanceSampleApp(const std::string& windowName) :
-glutil::ApplicationBase(windowName)
+glutil::ApplicationBase(windowName),
+rockData(rockCount)
 {
 }
 
 InstanceSampleApp::InstanceSampleApp(std::unique_ptr<glutil::WindowHandler> windowHandler) :
-glutil::ApplicationBase(std::move(windowHandler))
+glutil::ApplicationBase(std::move(windowHandler)),
+rockData(rockCount)
 {
 }
 
@@ -22,67 +24,64 @@ void InstanceSampleApp::initialize()
 	}
 	backgroundColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	shader.reset(new glutil::Shader("shaders/instanceSample/vertex.txt", "shaders/instanceSample/fragment.txt"));
-	camera.reset(new glutil::Camera(glm::vec3(0.0f, 0.0f, 155.0f),
+	camera.reset(new glutil::Camera(glm::vec3(0.0f, 50.0f, 150.f),
 		glm::vec3(0.0f, 1.0f, 0.0f),
 		glm::vec3(0.0f, 0.0f, 0.0f)));
 
+	camera->setMovementSpeed(30.0f);
+
 	srand(glfwGetTime()); // initialize random seed	
-	GLfloat radius = 50.0;
-	GLfloat offset = 2.5f;
-	std::vector<std::tuple<glm::mat4>> instanceData(rockCount);
+	GLfloat radius = 100.0f;
+	GLfloat offset = 25.0f;
+	std::vector<tuple<glm::mat4>> instanceData(rockCount);
 	for (GLuint i = 0; i < rockCount; i++)
 	{
 		glm::mat4 model;
-		// 1. Translation: displace along circle with 'radius' in range [-offset, offset]
+		// 1. Translation: Randomly displace along circle with radius 'radius' in range [-offset, offset]
 		GLfloat angle = (GLfloat)i / (GLfloat)rockCount * 360.0f;
 		GLfloat displacement = (rand() % (GLint)(2 * offset * 100)) / 100.0f - offset;
 		GLfloat x = sin(angle) * radius + displacement;
 		displacement = (rand() % (GLint)(2 * offset * 100)) / 100.0f - offset;
-		GLfloat y = displacement * 0.4f; // y value has smaller displacement
+		GLfloat y = -2.5f + displacement * 0.4f; // Keep height of asteroid field smaller compared to width of x and z
 		displacement = (rand() % (GLint)(2 * offset * 100)) / 100.0f - offset;
 		GLfloat z = cos(angle) * radius + displacement;
 		model = glm::translate(model, glm::vec3(x, y, z));
+
 		// 2. Scale: Scale between 0.05 and 0.25f
-		GLfloat scale = (rand() % 20) / 100.0f + 0.05;
+		GLfloat scale = (rand() % 300) / 100.0f + 0.3;
 		model = glm::scale(model, glm::vec3(scale));
+
 		// 3. Rotation: add random rotation around a (semi)randomly picked rotation axis vector
 		GLfloat rotAngle = (rand() % 360);
 		model = glm::rotate(model, rotAngle, glm::vec3(0.4f, 0.6f, 0.8f));
-		// 4. Now add to list of matrices
-		instanceData[i] = std::make_tuple(model);
+
+		//4. Now add to list of matrices
+		instanceData[i] = make_tuple(model);
 	}
 
 	modelArray.reset(new glutil::ModelArray<glutil::Model, glm::mat4>(*model.get(),
-					instanceData));
-	
+		instanceData));
+	modelArray->initialAttrib = 3;
+	modelArray->bufferData();
 }
 
 void InstanceSampleApp::updateData()
 {
-	// Camera/View transformation
 	updateMovement();
 	shader->use();
 	glm::mat4 view = camera->view();
 	// Projection 
-	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)windowHandler->getWindowWidth() / (GLfloat)windowHandler->getWindowHeight(), 1.0f, 10000.0f);
+	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)windowHandler->getWindowWidth() / (GLfloat)windowHandler->getWindowHeight(), 0.1f, 10000.0f);
 	// Get the uniform locations
-	GLint modelLoc = glGetUniformLocation(shader->getProgram(), "model");
 	GLint viewLoc = glGetUniformLocation(shader->getProgram(), "view");
 	GLint projLoc = glGetUniformLocation(shader->getProgram(), "projection");
-	glm::mat4 model;
-	model = glm::translate(model, glm::vec3(0.0f, -0.875f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-	glUniformMatrix4fv(glGetUniformLocation(shader->getProgram(), "model"), 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 }
 
 void InstanceSampleApp::render()
 {
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	if (model){
-		model->draw(*(shader.get()));
-	}
+	modelArray->draw(*(shader.get()));
 }
 
 void InstanceSampleApp::updateMovement()

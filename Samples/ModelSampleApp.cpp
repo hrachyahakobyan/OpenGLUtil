@@ -15,7 +15,7 @@ void ModelSampleApp::initialize()
 {
 	glutil::ApplicationBase::initialize();
 	try {
-		model.reset(new glutil::Model("models/nanosuit/nanosuit.obj"));
+		model.reset(new glutil::Model("models/rock/rock.obj"));
 	}
 	catch (std::exception& e){
 		std::cout << e.what() << std::endl;
