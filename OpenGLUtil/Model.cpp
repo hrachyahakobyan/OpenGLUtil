@@ -147,14 +147,8 @@ namespace glutil{
 	{
 		for (GLuint i = 0; i < mat->GetTextureCount(type); i++)
 		{
-			static int tcount = 0;
-
 			aiString str;
 			mat->GetTexture(type, i, &str);
-
-			tcount++;
-			std::cout << "TEXTURE " << tcount << " " << str.C_Str() << std::endl;
-
 			std::string filename(str.C_Str());
 			filename = directory + '/' + filename;
 			auto texture = Texture::get(filename);
