@@ -155,19 +155,19 @@ namespace glutil{
 			tcount++;
 			std::cout << "TEXTURE " << tcount << " " << str.C_Str() << std::endl;
 
-			auto texture = Texture::get(str.C_Str());
+			std::string filename(str.C_Str());
+			filename = directory + '/' + filename;
+			auto texture = Texture::get(filename);
 			if (texture == nullptr){
-				texture = textureFromFile(str.C_Str(), this->directory, type);
+				texture = textureFromFile(filename, type);
 			}
 			if (texture)
 				textures.push_back(texture);
 		}
 	}
 
-	std::shared_ptr<Texture> Model::textureFromFile(const char* path, const std::string& directory, aiTextureType type)
+	std::shared_ptr<Texture> Model::textureFromFile(const std::string& filename, aiTextureType type)
 	{
-		std::string filename(path);
-		filename = directory + '/' + filename;
 		int width, height;
 		unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
 		if (!image){

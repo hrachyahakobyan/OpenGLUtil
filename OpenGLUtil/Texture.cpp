@@ -13,6 +13,8 @@ namespace glutil{
 	Resource<R_TEX>::Resource(const std::string& path, GLenum textureType, MaterialType matType) :
 		path(path), textureType(textureType), materialType(matType)
 	{
+		glGenTextures(1, &resourceID);
+		glBindTexture(textureType, resourceID);
 	}
 
 	void Resource<R_TEX>::bind() const
