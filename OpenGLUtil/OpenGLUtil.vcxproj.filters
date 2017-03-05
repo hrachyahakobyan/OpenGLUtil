@@ -25,6 +25,12 @@
     <Filter Include="Source Files\detail">
       <UniqueIdentifier>{0927a132-52d6-4c1e-8f54-56d406426ffe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\resource">
+      <UniqueIdentifier>{8af8b79b-cf7f-4eaa-bfcf-dc6762e14b36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resource">
+      <UniqueIdentifier>{5b181cbb-00de-4558-8ec5-9b071f2b7d86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -37,9 +43,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WindowHandler.h">
@@ -57,9 +60,6 @@
     <ClInclude Include="OpenGLUtil.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Header Files\model</Filter>
     </ClInclude>
@@ -71,6 +71,12 @@
     </ClInclude>
     <ClInclude Include="InstanceSampleApp.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -98,12 +104,6 @@
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Resource.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
@@ -115,6 +115,12 @@
     </ClCompile>
     <ClCompile Include="InstanceSampleApp.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Source Files\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

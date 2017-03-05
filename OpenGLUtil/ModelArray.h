@@ -59,14 +59,14 @@ namespace glutil{
 	template<typename M, typename... Types>
 	void ModelArray<M, Types...>::draw(const Shader& shader) const
 	{
-		shader.use();
+		/*shader.use();
 		glBindTexture(GL_TEXTURE_2D, model.textures[0].id);
 		for (GLuint i = 0; i < model.meshes.size(); i++)
 		{
 			model.meshes[i].vao->bind();
 			glDrawElementsInstanced(GL_TRIANGLES, model.meshes[i].indices.size(), GL_UNSIGNED_INT, 0, instanceData.size());
 			glBindVertexArray(0);
-		}
+		}*/
 	}
 }
 

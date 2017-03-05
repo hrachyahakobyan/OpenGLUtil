@@ -39,8 +39,7 @@ namespace glutil{
 		void loadModel(const std::string& path);
 		void processNode(aiNode* node, const aiScene* scene);
 		Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-		void loadMaterialTextures(aiMaterial* mat, aiTextureType type,
-			const std::string& typeName, std::vector<Texture>& textures);
-		static GLint textureFromFile(const char* path, const std::string& dir);
+		void loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::vector<std::shared_ptr<Texture>>& textures);
+		static std::shared_ptr<Texture> textureFromFile(const char* path, const std::string& dir, aiTextureType type);
 	};
 } 

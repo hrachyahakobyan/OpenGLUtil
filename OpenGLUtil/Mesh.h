@@ -30,7 +30,7 @@ namespace glutil{
 		Mesh() = delete;
 		Mesh(const std::vector<glutil::Vertex>&,
 			const std::vector<GLuint>& indices,
-			const std::vector<glutil::Texture>&);
+			const std::vector<std::shared_ptr<glutil::Texture>>&);
 		Mesh(const Mesh&);
 		Mesh& operator=(const Mesh&);
 		Mesh(Mesh&&) NOEXCEPT;
@@ -39,7 +39,7 @@ namespace glutil{
 
 		const std::vector<glutil::Vertex>& getVertices() const { return vertices; }
 		const std::vector<GLuint> getIndices() const { return indices; }
-		const std::vector < glutil::Texture>& getTextures() const { return textures; }
+		const std::vector<std::shared_ptr<glutil::Texture>>& getTextures() const { return textures; }
 
 		/**
 		*	Renders the mesh.
@@ -51,7 +51,7 @@ namespace glutil{
 
 		std::vector<glutil::Vertex> vertices;
 		std::vector<GLuint> indices;
-		std::vector<glutil::Texture> textures;
+		std::vector<std::shared_ptr<glutil::Texture>> textures;
 		std::shared_ptr<VAO> vao;
 		std::shared_ptr<VBO> vbo;
 		std::shared_ptr<EBO> ebo;
@@ -61,6 +61,8 @@ namespace glutil{
 		*	Called in the constructors and during assignments.
 		*/
 		void setup();
+		void bindTextures(const Shader& shader) const;
+		void unbindTextures() const;
 	};
 
 }

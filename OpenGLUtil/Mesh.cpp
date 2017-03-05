@@ -5,7 +5,7 @@
 namespace glutil{
 	Mesh::Mesh(const std::vector<glutil::Vertex>& v,
 		const std::vector<GLuint>& i,
-		const std::vector<glutil::Texture>& t) :
+		const std::vector<std::shared_ptr<glutil::Texture>>& t) :
 		vertices(v), indices(i), textures(t)
 	{
 		setup();
@@ -77,6 +77,14 @@ namespace glutil{
 
 	void Mesh::draw(const glutil::Shader& shader) const
 	{
+		/*
+		bindTextures(shader);
+		vao->bind();
+		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+		unbindTextures();
+		*/
+		
 		GLuint diffuseNr = 1;
 		GLuint specularNr = 1;
 		GLuint tSize = static_cast<GLuint>(textures.size());
@@ -84,7 +92,7 @@ namespace glutil{
 		{
 			glActiveTexture(GL_TEXTURE0 + i); // Activate proper texture unit before binding
 			// Retrieve texture number (the N in diffuse_textureN)
-			std::string name = textures[i].type;
+			std::string name = (textures[i]->materialType == Diffusive ? "texture_diffuse" : "texture_specular");
 			std::string number;
 			if (name == "texture_diffuse")
 				number = std::to_string(diffuseNr++); // Transfer GLuint to stream
@@ -92,16 +100,50 @@ namespace glutil{
 				number = std::to_string(specularNr++); // Transfer GLuint to stream
 
 			glUniform1i(glGetUniformLocation(shader.getProgram(), (name + number).c_str()), i);
-			glBindTexture(GL_TEXTURE_2D, textures[i].id);
+			textures[i]->bind();
 		}
 		// Also set each mesh's shininess property to a default value (if you want you could extend this to another mesh property and possibly change this value)
 		glUniform1f(glGetUniformLocation(shader.getProgram(), "material.shininess"), 16.0f);
 
 		// Draw mesh
-		glBindVertexArray(vao->getResourceID());
+		vao->bind();
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
+		// Always good practice to set everything back to defaults once configured.
+		for (GLuint i = 0; i < this->textures.size(); i++)
+		{
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+		
+	}
+
+	void Mesh::bindTextures(const Shader& shader) const
+	{
+		GLuint diffuseNr = 1;
+		GLuint specularNr = 1;
+		GLuint tSize = static_cast<GLuint>(textures.size());
+		for (GLuint i = 0; i < tSize; i++)
+		{
+			glActiveTexture(GL_TEXTURE0 + i); // Activate proper texture unit before binding
+			// Retrieve texture number (the N in diffuse_textureN)
+			std::string name = (textures[i]->materialType == Diffusive ? "texture_diffuse" : "texture_specular");
+			std::string number;
+			if (name == "texture_diffuse")
+				number = std::to_string(diffuseNr++); // Transfer GLuint to stream
+			else if (name == "texture_specular")
+				number = std::to_string(specularNr++); // Transfer GLuint to stream
+
+			glUniform1i(glGetUniformLocation(shader.getProgram(), (name + number).c_str()), i);
+			textures[i]->bind();
+		}
+		// Also set each mesh's shininess property to a default value (if you want you could extend this to another mesh property and possibly change this value)
+		glUniform1f(glGetUniformLocation(shader.getProgram(), "material.shininess"), 16.0f);
+	}
+
+	void Mesh::unbindTextures() const
+	{
 		// Always good practice to set everything back to defaults once configured.
 		for (GLuint i = 0; i < this->textures.size(); i++)
 		{

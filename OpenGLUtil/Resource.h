@@ -5,6 +5,7 @@ namespace glutil{
 	static const ResourceType R_VAO = 0;
 	static const ResourceType R_VBO = 1;
 	static const ResourceType R_EBO = 2;
+	static const ResourceType R_TEX = 3;
 
 	class ResourceBase{
 	public:
@@ -27,6 +28,7 @@ namespace glutil{
 	typedef Resource<R_VAO> VAO;
 	typedef Resource<R_VBO> VBO;
 	typedef Resource<R_EBO> EBO;
+	typedef Resource<R_TEX> Texture;
 
 	template<>
 	class Resource<R_VAO> : public ResourceBase{

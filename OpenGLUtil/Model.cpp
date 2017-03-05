@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Model.h"
+#include "Shader.h"
 
 
 namespace glutil{
@@ -39,6 +40,7 @@ namespace glutil{
 
 	void Model::draw(const Shader& shader) const
 	{	
+		shader.use();
 		for (std::size_t i = 0; i < this->meshes.size(); i++)
 			this->meshes[i].draw(shader);
 	}
@@ -77,7 +79,7 @@ namespace glutil{
 		// Data to fill
 		std::vector<Vertex> vertices;
 		std::vector<GLuint> indices;
-		std::vector<Texture> textures;
+		std::vector<std::shared_ptr<Texture>> textures;
 
 		// Walk through each of the mesh's vertices
 		for (GLuint i = 0; i < mesh->mNumVertices; i++)
@@ -128,12 +130,12 @@ namespace glutil{
 			// Normal: texture_normalN
 
 			// 1. Diffuse maps
-			std::vector<Texture> diffuseMaps;
-			loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse", diffuseMaps);
+			std::vector<std::shared_ptr<Texture>> diffuseMaps;
+			loadMaterialTextures(material, aiTextureType_DIFFUSE, diffuseMaps);
 			textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 			// 2. Specular maps
-			std::vector<Texture> specularMaps;
-			loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular", specularMaps);
+			std::vector<std::shared_ptr<Texture>> specularMaps;
+			loadMaterialTextures(material, aiTextureType_SPECULAR, specularMaps);
 			textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 		}
 
@@ -141,35 +143,41 @@ namespace glutil{
 		return Mesh(vertices, indices, textures);
 	}
 
-	void Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::string& typeName, std::vector<Texture>& textures)
+	void Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type,  std::vector<std::shared_ptr<Texture>>& textures)
 	{
 		for (GLuint i = 0; i < mat->GetTextureCount(type); i++)
 		{
+			static int tcount = 0;
+
 			aiString str;
 			mat->GetTexture(type, i, &str);
 
-			Texture texture;
-			if (!Texture::get(str.C_Str(), texture)){
-				texture.id = textureFromFile(str.C_Str(), this->directory);
-				texture.type = typeName;
-				texture.path = std::string(str.C_Str());
-				Texture::add(texture);
+			tcount++;
+			std::cout << "TEXTURE " << tcount << " " << str.C_Str() << std::endl;
+
+			auto texture = Texture::get(str.C_Str());
+			if (texture == nullptr){
+				texture = textureFromFile(str.C_Str(), this->directory, type);
 			}
-			textures.push_back(texture);
+			if (texture)
+				textures.push_back(texture);
 		}
 	}
 
-	GLint Model::textureFromFile(const char* path, const std::string& directory)
+	std::shared_ptr<Texture> Model::textureFromFile(const char* path, const std::string& directory, aiTextureType type)
 	{
-		//Generate texture ID and load texture data 
 		std::string filename(path);
 		filename = directory + '/' + filename;
-		GLuint textureID;
-		glGenTextures(1, &textureID);
 		int width, height;
 		unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
-		// Assign texture to ID
-		glBindTexture(GL_TEXTURE_2D, textureID);
+		if (!image){
+			std::cout << "Failed to load texture at " << filename << std::endl;
+			return nullptr;
+		}
+		
+		MaterialType matType = (type == aiTextureType_DIFFUSE ? Diffusive : Specular);
+		auto texture = Texture::add(filename, GL_TEXTURE_2D, matType, true);
+		texture->bind();
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 		glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -179,7 +187,8 @@ namespace glutil{
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glBindTexture(GL_TEXTURE_2D, 0);
+
 		SOIL_free_image_data(image);
-		return textureID;
+		return texture;
 	}
 }
