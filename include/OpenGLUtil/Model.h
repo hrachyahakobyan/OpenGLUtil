@@ -17,7 +17,8 @@ namespace glutil{
 	class Model
 	{
 	public:
-		Model() = delete;
+		Model();
+		Model(const std::vector<Mesh>&);
 		/**
 		*	Main constructor.
 		*	@param path path to the model file.

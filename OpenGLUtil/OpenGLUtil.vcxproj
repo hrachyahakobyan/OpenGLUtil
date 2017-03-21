@@ -60,6 +60,9 @@
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)/dependency/glew/lib/Release/Win32;$(SolutionDir)/dependency/glfw/lib;$(SolutionDir)/dependency/assimp/lib;$(SolutionDir)/dependency/soil/lib/Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)\Debug\glutil.lib" "$(SolutionDir)\lib\msvc2013\Debug" /s /i /y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

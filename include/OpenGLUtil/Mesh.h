@@ -11,6 +11,10 @@ namespace glutil{
 		glm::vec3 position;
 		glm::vec3 normal;
 		glm::vec2 texCoords;
+		Vertex(){}
+		Vertex(const glm::vec3& pos) : position(pos){}
+		Vertex(const glm::vec3& pos, const glm::vec3& norm) : position(pos), normal(norm){}
+		Vertex(const glm::vec3& pos, const glm::vec3& norm, const glm::vec3& tex) : position(pos), normal(norm), texCoords(tex){}
 	};
 
 	class Shader;

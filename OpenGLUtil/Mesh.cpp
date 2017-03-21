@@ -77,14 +77,7 @@ namespace glutil{
 
 	void Mesh::draw(const glutil::Shader& shader) const
 	{
-		
-		bindTextures(shader);
-		vao->bind();
-		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
-		unbindTextures();
-		return;
-		
+		shader.use();
 		GLuint diffuseNr = 1;
 		GLuint specularNr = 1;
 		GLuint tSize = static_cast<GLuint>(textures.size());
