@@ -49,7 +49,7 @@ namespace glutil{
 		GLsizei offset = 0;
 		GLuint initAttrib = initialAttrib;
 		GLuint finalAttrib = 0;
-		for (std::size_t i = 0; i < TypeCount; i++){
+		for (std::size_t i = 0; i < model.meshes.size(); i++){
 			model.meshes[i].vao->bind();
 			AttribHelper<TypeCount - 1, Tuple>::attrib(initAttrib, finalAttrib, 1, GL_FALSE, 0, DataSize);
 			glBindVertexArray(0);

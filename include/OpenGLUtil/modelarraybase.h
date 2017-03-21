@@ -40,7 +40,15 @@ namespace glutil{
 	template<typename T>
 	struct VertexAttribPointer{
 		void operator()(GLuint initialAttrib, GLuint& finalAttrib, GLuint divisor, GLint normalize, GLsizei offset, GLsizei stride = sizeof(T)){
-			static_assert(false, "Vertex Attribute Pointers for fundamental types is not implemented");
+			static_assert(false, "Vertex Attribute Pointers for type is not implemented");
+		}
+	};
+
+	template<typename T>
+	struct VertexAttribPointer <glm::tvec3<T, glm::packed_highp>>{
+		void operator()(GLuint initialAttrib, GLuint& finalAttrib, GLuint divisor, GLint normalize, GLsizei offset, GLsizei stride = sizeof(T)){
+			typedef glm::tvec3<T, glm::packed_highp> vector;
+			VERTEX_ATTRIB_VECTOR(vector);
 		}
 	};
 
@@ -67,7 +75,7 @@ namespace glutil{
 			GLuint divisor, GLint normalize,
 			GLsizei offset, const GLsizei stride){
 			AttribHelper<I - 1, Tuple>::attrib(initialAttrib, finalAttrib, divisor, normalize, offset, stride);
-			GLsizei newOffset = offset + sizeof(std::tuple_element<I, Tuple>::type);
+			GLsizei newOffset = offset + sizeof(detail::tuple_element<I-1, Tuple>::type);
 			VertexAttribPointer<detail::tuple_element<I, Tuple>::type>()(finalAttrib, finalAttrib,
 				divisor, normalize,
 				newOffset, stride);
