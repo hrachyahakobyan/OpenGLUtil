@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "ModelSampleApp.h"
 #include "InstanceSampleApp.h"
+#include "DynamicInstanceSampleApp.h"
 
 
 static void modelSampleApp()
@@ -20,9 +21,16 @@ static void instanceSampleApp()
 	app.run();
 }
 
+static void dynamicInstanceSampleApp()
+{
+	DynamicInstanceSampleApp app("Dynamic Instancing");
+	app.initialize();
+	app.run();
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
-	modelSampleApp();
+	dynamicInstanceSampleApp();
 	return 0;
 }
 

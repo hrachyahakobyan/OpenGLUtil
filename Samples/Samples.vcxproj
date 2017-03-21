@@ -82,12 +82,14 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DynamicInstanceSampleApp.h" />
     <ClInclude Include="InstanceSampleApp.h" />
     <ClInclude Include="ModelSampleApp.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DynamicInstanceSampleApp.cpp" />
     <ClCompile Include="InstanceSampleApp.cpp" />
     <ClCompile Include="ModelSampleApp.cpp" />
     <ClCompile Include="Samples.cpp" />

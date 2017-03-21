@@ -30,6 +30,9 @@
     <ClInclude Include="InstanceSampleApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DynamicInstanceSampleApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -42,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InstanceSampleApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicInstanceSampleApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
