@@ -30,7 +30,7 @@ static void dynamicInstanceSampleApp()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	dynamicInstanceSampleApp();
+	instanceSampleApp();
 	return 0;
 }
 

@@ -36,15 +36,30 @@ namespace glutil{
 		return iter->second;
 	}
 
-	std::shared_ptr<Texture> Texture::add(const std::string& path, GLenum textureType, MaterialType matType, bool overwrite)
+	std::shared_ptr<Texture> Texture::fromFile(const std::string& filename, GLenum textureType, MaterialType mType, bool overwrite)
 	{
-		if (!overwrite && isLoaded(path)){
-			return std::shared_ptr<Texture>();
+		if (!overwrite && isLoaded(filename)){
+			return Texture::get(filename);
 		}
-		auto text = std::shared_ptr<Texture>(new Texture(path, textureType, matType));
+		int width, height;
+		unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+		if (!image){
+			std::cout << "Failed to load texture at " << filename << std::endl;
+			return nullptr;
+		}
+		auto tex = std::shared_ptr<Texture>(new Texture(filename, textureType, mType));
+		tex->bind();
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		// Parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		SOIL_free_image_data(image);
 		// Insert or update
-		textures[text->path] = text;
-		std::cout << "Texture Resource count " << textures.size() << std::endl;
-		return text;
+		textures[tex->path] = tex;
+		return tex;
 	}
 }

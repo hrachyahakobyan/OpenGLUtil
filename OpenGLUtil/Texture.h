@@ -25,14 +25,16 @@ namespace glutil{
 		const GLenum textureType;
 		const MaterialType materialType;
 
-		inline static std::size_t resourceCount(){ return textures.size(); }
-
 		/**
-		*	Adds a new texture
-		*	@param texture the texture to add
+		*	Loads a new texture from file.
+		*	@param filename the filename of the texture image
+		*	@param textureType the texture type
 		*	@overwrite overwrite an existing texture in case of a duplication
+		*	@return a shared pointer to a valid texture or nullptr if could not load the texture from the file
 		*/
-		static std::shared_ptr<Texture> add(const std::string& path, GLenum textureType, MaterialType matType, bool overwrite = false);
+		static std::shared_ptr<Texture> fromFile(const std::string& filename, GLenum textureType, MaterialType mType, bool overwrite = true);
+
+		inline static std::size_t resourceCount(){ return textures.size(); }
 
 		/**
 		*	Checks if a texture with a given path is already loaded
