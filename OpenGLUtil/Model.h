@@ -31,6 +31,8 @@ namespace glutil{
 		Model& operator=(Model&&);
 		~Model();
 		void draw(const glutil::Shader& shader) const;
+
+		static std::shared_ptr<Model> Cube();
 	private:
 		FRIEND_MODELARRAY()
 

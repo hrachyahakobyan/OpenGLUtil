@@ -194,4 +194,53 @@ namespace glutil{
 		SOIL_free_image_data(image);
 		return texture;
 	}
+
+	std::shared_ptr<Model> Model::Cube()
+	{
+		std::vector<Vertex> vertices{Vertex({-0.5f, -0.5f, -0.5f}, {0.0f, 0.0f, -1.0f}),
+			Vertex({0.5f, -0.5f, -0.5f}, {0.0f, 0.0f, -1.0f}),
+			Vertex({0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, -1.0f}),
+			Vertex({0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, -1.0f}),
+			Vertex({-0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, -1.0f}),
+			Vertex({-0.5f, -0.5f, -0.5f}, {0.0f, 0.0f, -1.0f}),
+
+			Vertex({-0.5f, -0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}),
+			Vertex({0.5f, -0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}),
+			Vertex({0.5f, 0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}),
+			Vertex({0.5f, 0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}),
+			Vertex({-0.5f, 0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}),
+			Vertex({-0.5f, -0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}),
+
+			Vertex({-0.5f, 0.5f, 0.5f}, {-1.0f, 0.0f, 0.0f}),
+			Vertex({-0.5f, 0.5f, -0.5f}, {-1.0f, 0.0f, 0.0f}),
+			Vertex({-0.5f, -0.5f, -0.5f}, {-1.0f, 0.0f, 0.0f}),
+			Vertex({-0.5f, -0.5f, -0.5f}, {-1.0f, 0.0f, 0.0f}),
+			Vertex({-0.5f, -0.5f, 0.5f}, {-1.0f, 0.0f, 0.0f}),
+			Vertex({-0.5f, 0.5f, 0.5f}, {-1.0f, 0.0f, 0.0f}),
+
+			Vertex({0.5f, 0.5f, 0.5f}, {1.0f, 0.0f, 0.0f}),
+			Vertex({0.5f, 0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}),
+			Vertex({0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}),
+			Vertex({0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}),
+			Vertex({0.5f, -0.5f, 0.5f}, {1.0f, 0.0f, 0.0f}),
+			Vertex({0.5f, 0.5f, 0.5f}, {1.0f, 0.0f, 0.0f}),
+
+			Vertex({-0.5f, -0.5f, -0.5f}, {0.0f, -1.0f, 0.0f}),
+			Vertex({0.5f, -0.5f, -0.5f}, {0.0f, -1.0f, 0.0f}),
+			Vertex({0.5f, -0.5f, 0.5f}, {0.0f, -1.0f, 0.0f}),
+			Vertex({0.5f, -0.5f, 0.5f}, {0.0f, -1.0f, 0.0f}),
+			Vertex({-0.5f, -0.5f, 0.5f}, {0.0f, -1.0f, 0.0f}),
+			Vertex({-0.5f, -0.5f, -0.5f}, {0.0f, -1.0f, 0.0f}),
+
+			Vertex({-0.5f, 0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}),
+			Vertex({0.5f, 0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}),
+			Vertex({0.5f, 0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}),
+			Vertex({0.5f, 0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}),
+			Vertex({-0.5f, 0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}),
+			Vertex({-0.5f, 0.5f, -0.5f}, {0.0f, 1.0f, 0.0f})};
+		std::size_t triangleCount = 12;
+		std::vector<GLuint> indices(vertices.size()); 
+		std::iota(std::begin(indices), std::end(indices), 0); 
+		return std::shared_ptr<Model>(new Model(std::vector<Mesh>{Mesh(vertices, indices, std::vector<std::shared_ptr<Texture>>())}));
+	}
 }

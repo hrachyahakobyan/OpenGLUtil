@@ -44,12 +44,7 @@ void DynamicInstanceSampleApp::updateData()
 void DynamicInstanceSampleApp::initializeModel()
 {
 	using namespace glutil;
-	std::vector<Vertex> vertices{ Vertex({ -0.5f, 0.5f, 0.0f }), Vertex({ 0.5, 0.5f, 0.0f }), Vertex({ 0.5f, -0.5f, 0.0f }), Vertex({ -0.5f, -0.5f, 0.0f }),
-		Vertex({ -0.5f, 0.5f, 1.0f }), Vertex({ 0.5f, 0.5f, 1.0f }), Vertex({ 0.5f, -0.5f, 1.0f }), Vertex({ -0.5f, -0.5f, 1.0f }), };
-	std::size_t triangleCount = 12;
-	std::vector<GLuint> indices{ 0, 3, 1, 1, 3, 2, 4, 7, 5, 5, 7, 6, 4, 0, 7, 7, 0, 3, 7, 3, 6, 6, 3, 2, 6, 2, 5, 5, 2, 1, 5, 1, 4, 4, 1, 0 };
-	model = Model(std::vector<Mesh>{Mesh(vertices, indices, std::vector<std::shared_ptr<Texture>>())});
-	modelArray.reset(new ModelArray<Model, glm::vec3, glm::mat4>(model));
+	modelArray.reset(new ModelArray<Model, glm::vec3, glm::mat4>(*Model::Cube().get()));
 	modelArray->initialAttrib = 3;
 	modelArray->instanceData.push_back(make_tuple(glm::vec3{ 1.0f, 0.0f, 0.0f }, glm::mat4()));
 	modelArray->bufferData();
