@@ -5,11 +5,18 @@
 #include "ModelSampleApp.h"
 #include "InstanceSampleApp.h"
 #include "DynamicInstanceSampleApp.h"
-
+#include "TextureTestApp.h"
 
 static void modelSampleApp()
 {
 	ModelSampleApp app("Nanosuit");
+	app.initialize();
+	app.run();
+}
+
+static void textureTestApp()
+{
+	TextureTestApp app("Texture Test");
 	app.initialize();
 	app.run();
 }
@@ -30,7 +37,7 @@ static void dynamicInstanceSampleApp()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	instanceSampleApp();
+	textureTestApp();
 	return 0;
 }
 
