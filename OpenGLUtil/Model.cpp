@@ -8,8 +8,23 @@ namespace glutil{
 	{
 	}
 
+	Model::Model(const Mesh& mesh) :
+	meshes(1, mesh)
+	{
+	}
+
 	Model::Model(const std::vector<Mesh>& meshes) :
 	meshes(meshes)
+	{
+	}
+
+	Model::Model(Mesh&& mesh):
+	meshes(1, std::move(mesh))
+	{
+	}
+
+	Model::Model(std::vector<Mesh>&& meshes):
+	meshes(std::move(meshes))
 	{
 	}
 
@@ -26,7 +41,6 @@ namespace glutil{
 	Model::Model(Model&& o) :
 		meshes(std::move(o.meshes)), directory(std::move(o.directory))
 	{
-		
 	}
 
 	Model& Model::operator=(const Model& m)
@@ -52,6 +66,11 @@ namespace glutil{
 		shader.use();
 		for (std::size_t i = 0; i < this->meshes.size(); i++)
 			this->meshes[i].draw(shader);
+	}
+
+	void Model::add(const Mesh& mesh)
+	{
+		meshes.push_back(mesh);
 	}
 
 	void Model::loadModel(const std::string& path)

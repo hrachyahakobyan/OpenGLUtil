@@ -14,7 +14,10 @@ protected:
 	void updateData();
 	void render();
 	void updateMovement();
-	std::unique_ptr<glutil::Shader> shader;
+	glm::mat4 view;
+	glm::mat4 proj;
+	std::shared_ptr<glutil::Shader> shader;
 	std::unique_ptr<glutil::Model> model;
+	std::shared_ptr<glutil::Skybox> skybox;
 };
 

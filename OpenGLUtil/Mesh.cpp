@@ -11,6 +11,14 @@ namespace glutil{
 		setup();
 	}
 
+	Mesh::Mesh(std::vector<glutil::Vertex>&& v,
+		std::vector<GLuint>&& indices,
+		const std::vector<std::shared_ptr<glutil::Texture>>& t) :
+		vertices(std::move(v)), indices(std::move(indices)), textures(t)
+	{
+		setup();
+	}
+
 	Mesh::Mesh(const Mesh& o) :
 		vertices(o.vertices), indices(o.indices), textures(o.textures)
 	{
@@ -41,6 +49,11 @@ namespace glutil{
 		vbo = std::move(o.vbo);
 		ebo = std::move(o.ebo);
 		return *this;
+	}
+
+	void Mesh::addTexture(std::shared_ptr<Texture> texture)
+	{
+		textures.push_back(texture);
 	}
 
 	void Mesh::setup()
@@ -142,6 +155,83 @@ namespace glutil{
 		{
 			glActiveTexture(GL_TEXTURE0 + i);
 			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+	}
+
+	Mesh Mesh::rectangle(const glm::vec3& topleft, int xWidth, int zWidth, float rectWidth, float rectHeight, int height, bool bottom, bool top)
+	{
+		std::vector<Vertex> vertices;
+		std::vector<GLuint> indices;
+		rectangle(topleft, xWidth, zWidth, rectWidth, rectHeight, height, bottom, top, vertices, indices);
+		return Mesh(std::move(vertices), std::move(indices));
+	}
+
+	void Mesh::rectangle(const glm::vec3& topleft, int xWidth, int zWidth, float rectWidth, float rectHeight, int height, bool bottom, bool top, std::vector<Vertex>& vertices, std::vector<GLuint>& indices)
+	{
+		if (xWidth == 0 || zWidth == 0 || rectWidth <= 0.0f || rectHeight <= 0.0f)
+			throw std::exception("Invalid parameters.");
+		glm::vec3 origin = topleft;
+		glm::vec3 d1{ rectWidth, 0.0f, 0.0f };
+		glm::vec3 d2{ 0.0f, rectHeight, 0.0f };
+		glm::vec3 normal{ 0.0f, 0.0f, 1.0f };
+
+		// Calculate the total count of vertices and indices
+		std::size_t vertexTotalCount = 2 * (xWidth + zWidth) * (height + 1) + (height + 1) * 4 + (int(top) + int(bottom)) * (xWidth + 1) * (zWidth + 1);
+		std::size_t indexTotalCount = 2 * (xWidth + zWidth) * height * 2 * 3 + (int(top) + int(bottom)) * xWidth * zWidth * 2 * 3;
+
+		if (bottom){
+			glm::vec3 d2{ 0.0f, 0.0f, rectWidth };
+			glm::vec3 normal{ 0.0f, -1.0f, 0.0f };
+			grid2D(origin, d1, d2, normal, xWidth, zWidth, vertices, indices);
+		}
+		grid2D(origin, d1, d2, normal, xWidth, height, vertices, indices);
+		d1 = glm::vec3{ 0.0f, 0.0f, rectWidth };
+		normal = glm::vec3{ 1.0f, 0.0f, 0.0f };
+		origin = glm::vec3{ origin.x + float(xWidth) * rectWidth, origin.y, origin.z };
+		grid2D(origin, d1, d2, normal, zWidth, height, vertices, indices);
+		d1 = glm::vec3{ -rectWidth, 0.0f, 0.0f };
+		normal = glm::vec3{ 0.0f, 0.0f, 1.0f };
+		origin = glm::vec3{ origin.x, origin.y, origin.z + float(zWidth) * rectWidth };
+		grid2D(origin, d1, d2, normal, xWidth, height, vertices, indices);
+		d1 = glm::vec3{ 0.0f, 0.0f, -rectWidth };
+		normal = glm::vec3{ -1.0f, 0.0f, 0.0f };
+		origin = glm::vec3{ origin.x - float(xWidth) * rectWidth, origin.y, origin.z };
+		grid2D(origin, d1, d2, normal, zWidth, height, vertices, indices);
+		if (top){
+			origin = topleft;
+			origin.y += height * rectHeight;
+			glm::vec3 d1{ rectWidth, 0.0f, 0.0f };
+			glm::vec3 d2{ 0.0f, 0.0f, rectWidth };
+			glm::vec3 normal{ 0.0f, 1.0f, 0.0f };
+			grid2D(origin, d1, d2, normal, xWidth, zWidth, vertices, indices);
+		}
+	}
+
+	void Mesh::grid2D(const glm::vec3& bottomleft, const glm::vec3& d1, const glm::vec3& d2, const glm::vec3& normal, 
+					 int width, int height, 
+					 std::vector<Vertex>& vertices, std::vector<GLuint>& indices)
+	{
+		std::size_t vertexCount = (width + 1) * (height + 1);
+		std::size_t triCount = width * height * 2;
+		std::size_t vCounter = 0;
+		std::size_t iCounter = 0;
+		std::size_t initialVertexCount = vertices.size();
+		for (int i = 0; i < height + 1; i++){
+			float textY = (i % 2 == 0 ? 0.0f : 1.0f);
+			for (int j = 0; j < width + 1; j++){
+				float textX = (j % 2 == 0 ? 0.0f : 1.0f);
+				vertices.push_back(Vertex(bottomleft + float(j) * d1 + float(i) * d2, normal, glm::vec2{ j, i }));
+			}
+		}
+		for (int i = 0; i < width; i++){
+			for (int j = 0; j < height; j++){
+				indices.push_back(initialVertexCount + (j + 1) * (width + 1) + i);
+				indices.push_back(initialVertexCount + j * (width + 1) + i);
+				indices.push_back(initialVertexCount + j * (width + 1) + i + 1);
+				indices.push_back(initialVertexCount + (j + 1) * (width + 1) + i + 1);
+				indices.push_back(initialVertexCount + (j + 1) * (width + 1) + i);
+				indices.push_back(initialVertexCount + j * (width + 1) + i + 1);
+			}
 		}
 	}
 }

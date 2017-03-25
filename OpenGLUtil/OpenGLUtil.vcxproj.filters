@@ -78,6 +78,9 @@
     <ClInclude Include="detail\standard_tuple.h">
       <Filter>Header Files\detail</Filter>
     </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -121,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="detail\standard_tuple.cpp">
       <Filter>Source Files\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Source Files\model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

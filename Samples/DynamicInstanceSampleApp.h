@@ -14,7 +14,7 @@ protected:
 	void updateData();
 	void render();
 	void updateMovement();
-	std::unique_ptr<glutil::Shader> shader;
+	std::shared_ptr<glutil::Shader> shader;
 	glutil::Model model;
 	std::size_t currentModel;
 	std::unique_ptr<glutil::ModelArray<glutil::Model, glm::vec3, glm::mat4>> modelArray;

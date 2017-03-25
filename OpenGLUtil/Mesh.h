@@ -34,7 +34,10 @@ namespace glutil{
 		Mesh() = delete;
 		Mesh(const std::vector<glutil::Vertex>&,
 			const std::vector<GLuint>& indices,
-			const std::vector<std::shared_ptr<glutil::Texture>>&);
+			const std::vector<std::shared_ptr<glutil::Texture>>& = std::vector<std::shared_ptr<Texture>>());
+		Mesh(std::vector<glutil::Vertex>&&,
+			std::vector<GLuint>&& indices,
+			const std::vector<std::shared_ptr<glutil::Texture>>& = std::vector<std::shared_ptr<Texture>>());
 		Mesh(const Mesh&);
 		Mesh& operator=(const Mesh&);
 		Mesh(Mesh&&) NOEXCEPT;
@@ -45,11 +48,19 @@ namespace glutil{
 		const std::vector<GLuint> getIndices() const { return indices; }
 		const std::vector<std::shared_ptr<glutil::Texture>>& getTextures() const { return textures; }
 
+		void addTexture(std::shared_ptr<Texture> texture);
+
 		/**
 		*	Renders the mesh.
 		*	@param shader the shader object to be used for rendering.
 		*/
 		void draw(const glutil::Shader& shader) const;
+
+		static Mesh rectangle(const glm::vec3& topleft, int xWidth, int zWidth, float rectWidth, float rectHeight, int height, bool bottom, bool top);
+		static void rectangle(const glm::vec3& topleft, int xWidth, int zWidth, float rectWidth, float rectHeight, int height, bool bottom, bool top, std::vector<Vertex>& vertices, std::vector<GLuint>& indices);
+		static void grid2D(const glm::vec3& bottomleft, const glm::vec3& d1, const glm::vec3& d2, const glm::vec3& normal,
+			int width, int height,
+			std::vector<Vertex>& vertices, std::vector<GLuint>& indices);
 	private:
 		FRIEND_MODELARRAY()
 

@@ -15,7 +15,7 @@ void DynamicInstanceSampleApp::initialize()
 {
 	glutil::ApplicationBase::initialize();
 	backgroundColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	shader.reset(new glutil::Shader("shaders/dynamicInstanceSample/vertex.txt", "shaders/dynamicInstanceSample/fragment.txt"));
+	shader = glutil::Shader::fromFile("shaders/dynamicInstanceSample/vertex.txt", "shaders/dynamicInstanceSample/fragment.txt");
 	camera.reset(new glutil::Camera(glm::vec3(0.0f, 0.0f, 1.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f),
 		glm::vec3(0.0f, 0.0f, 0.0f)));

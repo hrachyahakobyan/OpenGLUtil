@@ -32,9 +32,11 @@ namespace glutil{
 		*	@overwrite overwrite an existing texture in case of a duplication
 		*	@return a shared pointer to a valid texture or nullptr if could not load the texture from the file
 		*/
-		static std::shared_ptr<Texture> fromFile(const std::string& filename, GLenum textureType, MaterialType mType, bool overwrite = true);
+		static std::shared_ptr<Texture> fromFile(const std::string& filename, GLenum textureType, MaterialType mType);
 
-		inline static std::size_t resourceCount(){ return textures.size(); }
+		static std::shared_ptr<Texture> cubemap(const std::string& path, const std::vector<std::string>& faces);
+
+		inline static std::size_t textureCount(){ return textures.size(); }
 
 		/**
 		*	Checks if a texture with a given path is already loaded
@@ -50,7 +52,9 @@ namespace glutil{
 		*/
 		static std::shared_ptr<Texture> get(const std::string& path);
 
+		static void purge();
 	private:
+		static unsigned int resourceCount;
 		Resource(const std::string& path, GLenum textureType, MaterialType matType);
 		static std::map<std::string, std::shared_ptr<Texture>> textures;
 	};

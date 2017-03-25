@@ -18,7 +18,10 @@ namespace glutil{
 	{
 	public:
 		Model();
+		Model(const Mesh& mesh);
 		Model(const std::vector<Mesh>&);
+		Model(Mesh&&);
+		Model(std::vector<Mesh>&&);
 		/**
 		*	Main constructor.
 		*	@param path path to the model file.
@@ -31,6 +34,7 @@ namespace glutil{
 		Model& operator=(Model&&);
 		~Model();
 		void draw(const glutil::Shader& shader) const;
+		void add(const Mesh& mesh);
 
 		static std::shared_ptr<Model> Cube();
 	private:

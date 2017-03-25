@@ -14,7 +14,7 @@ protected:
 	void updateData();
 	void render();
 	void updateMovement();
-	std::unique_ptr<glutil::Shader> shader;
+	std::shared_ptr<glutil::Shader> shader;
 	std::unique_ptr<glutil::Model> model;
 	std::unique_ptr<glutil::ModelArray<glutil::Model, glm::mat4>> modelArray;
 	const std::size_t rockCount = 100;

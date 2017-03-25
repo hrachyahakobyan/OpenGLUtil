@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ApplicationBase.h"
 #include "CameraBase.h"
+#include "Texture.h"
 
 namespace glutil{
 
@@ -18,6 +19,7 @@ namespace glutil{
 
 	ApplicationBase::~ApplicationBase()
 	{
+		Texture::purge();
 		glfwTerminate();
 	}
 

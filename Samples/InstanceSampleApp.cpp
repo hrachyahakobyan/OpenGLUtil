@@ -23,7 +23,7 @@ void InstanceSampleApp::initialize()
 		std::cout << e.what() << std::endl;
 	}
 	backgroundColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	shader.reset(new glutil::Shader("shaders/instanceSample/vertex.txt", "shaders/instanceSample/fragment.txt"));
+	shader = glutil::Shader::fromFile("shaders/instanceSample/vertex.txt", "shaders/instanceSample/fragment.txt");
 	camera.reset(new glutil::Camera(glm::vec3(0.0f, 50.0f, 150.f),
 		glm::vec3(0.0f, 1.0f, 0.0f),
 		glm::vec3(0.0f, 0.0f, 0.0f)));
